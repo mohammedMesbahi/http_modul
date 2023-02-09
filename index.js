@@ -1,5 +1,5 @@
 const http=require("http")
-const fs=require("fs")
+const fs=require("fs");
 let idCounter;
 idCounter = parseInt(fs.readFileSync("./idCounter.txt").toString())
 const bd=JSON.parse(fs.readFileSync("./database.json").toString());
@@ -34,7 +34,7 @@ const server = http.createServer((req,res)=>{
                 return res.end();
             }
            const {userId, title, completed} = data;
-           if(!userId || !title || !completed)
+           if(!userId || !title || completed==undefined)
            {
             res.writeHead(400, {"Content-Type": "application/json"});
             res.write(JSON.stringify({message:"userId, title and completed are required"}));
@@ -67,9 +67,34 @@ const server = http.createServer((req,res)=>{
           
         })
     }
+    else if(method=="DELETE" && path.indexOf("/todos/")==0)
+    {
+        let index=path.substring("/todos/".length)
+        if(isNaN(index) || index=="")
+        {
+            res.writeHead(400, {"Content-Type": "application/json"});
+            res.write(JSON.stringify({message:"id is required (integer)"}));
+            return res.end();
+        }
+        let todo = bd.todos.find(element=>element.id==index)
+        if(!todo)
+        {
+            res.writeHead(404, {"Content-Type": "application/json"});
+            res.write(JSON.stringify({message:"todo not found"}));
+            return res.end();
+        }
+        bd.todos=bd.todos.filter(element=>element.id!=index)
+        fs.promises.writeFile("./database.json",JSON.stringify(bd,null,4))
+        .then(()=>{
+            res.writeHead(200, {"Content-Type": "application/json"});
+            res.write(JSON.stringify({message:"deleted with success"}));
+            return res.end();
+        })
+  
+    }
     else{
         res.writeHead(404, {"Content-Type": "text/html"});
-        res.write("not found");
+        res.write("not found: "+ path);
         res.end();
     }
    /* console.log('incoming request')
