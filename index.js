@@ -6,11 +6,46 @@ const bd=JSON.parse(fs.readFileSync("./database.json").toString());
 const server = http.createServer((req,res)=>{
     let method=req.method;
     let path=req.url;
-    if(method=="GET" && path=="/todos")
+    if(method=="GET" && path.indexOf("/todos")==0)
     {
-        res.setHeader("Content-Type","application/json")
-        res.write(JSON.stringify(bd.todos))
-        res.end();
+        let ch=path.substring("/todos".length)
+        if(ch[0]=="/" && ch.length>1)
+        {
+            let index=ch.substring(1)
+            if(isNaN(index))
+            {
+            res.writeHead(404, {"Content-Type": "application/json"});
+            res.write(JSON.stringify({message:"todo not found"}));
+            return res.end();
+            }
+            let todo=bd.todos.filter(element=>element.id==index)
+            if(!todo)
+            {
+                res.writeHead(404, {"Content-Type": "application/json"});
+                res.write(JSON.stringify({message:"todo not found"}));
+                return res.end();
+            }
+            res.writeHead(200, {"Content-Type": "application/json"});
+            res.write(JSON.stringify(todo));
+            return res.end();
+        }
+        else{
+            let limit=bd.todos.length;
+            if(ch[0]=="?")
+            {
+                let queries=ch.substring(1).split("&").map(element=>{let table =element.split("="); return {key:table[0],value:table[1]}})
+                queries.forEach(element=> {
+                                            if(element.key=="limit") 
+                                                limit=element.value
+                                        })
+            }
+
+            let datas=bd.todos.filter((element,index)=>index<limit)
+            res.setHeader("Content-Type","application/json")
+            res.write(JSON.stringify(datas))
+            res.end();
+        }
+        
        
     }
     else if(method=="POST" && path=="/todos")
