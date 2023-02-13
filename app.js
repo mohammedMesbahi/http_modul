@@ -1,11 +1,17 @@
 const express = require("express")
 const fs = require("fs")
+const usersRouter =require("./routes/users.js")
 const app = express()
 const port = 3000
 const bd=JSON.parse(fs.readFileSync("./database.json").toString())
 let counter=parseInt(fs.readFileSync("./idCounter.txt").toString())
 
 app.use(express.json()) // global
+
+app.use("/users",usersRouter);
+
+
+
 app.get("/todos",(req,res)=>{
     let limit=req.query.limit || bd.todos.length
     const datas=bd.todos.filter((element,index)=>index<limit)
@@ -81,7 +87,6 @@ app.put("/todos/:id",(req,res)=>{
         res.status(500).json({message:"please try again later"})
     })
 
-    
 })
 app.use((req,res)=>{
     res.status(404).json({message:"404 not found"})
