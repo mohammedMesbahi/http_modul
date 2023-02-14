@@ -7,13 +7,13 @@ let counter=parseInt(fs.readFileSync("./idCounter.txt").toString())
 
 
 const router= express.Router();
-router.get("/todos",(req,res)=>{
+router.get("/",(req,res)=>{
     let limit=req.query.limit || bd.todos.length
     const datas=bd.todos.filter((element,index)=>index<limit)
     res.json(datas)
 })
 
-router.get("/todos/:id",(req,res)=>{
+router.get("/:id",(req,res)=>{
     let id = req.params.id
     if(isNaN(id))
         return res.status(400).json({message:"please provide a number"})
@@ -24,7 +24,7 @@ router.get("/todos/:id",(req,res)=>{
         res.status(404).json({message:"todo with id = " + id + " not found"})
 })
 
-router.post("/todos",(req,res)=>{
+router.post("/",(req,res)=>{
     let { userId, title, completed }=req.body
     //verification
     if(!userId || !title || completed==undefined)
@@ -61,7 +61,7 @@ router.delete("/todos/:id",(req,res)=>{
     })
 })
 
-router.put("/todos/:id",(req,res)=>{
+router.put("/:id",(req,res)=>{
     let id=req.params.id
     let {userId, title, completed } = req.body
     if(isNaN(id))

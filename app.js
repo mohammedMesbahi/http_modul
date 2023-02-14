@@ -5,7 +5,11 @@ const session = require("express-session")
 
 const app = express()
 const port = 3000
-
+let authGuard=(req,res,next)=>{
+    if(req.session.isConnected)
+       return next();
+    res.status(403).json({message:"you need to login first"})
+}
 app.use(session({
   secret: 'keyboard cat',
   resave: false,
@@ -28,7 +32,9 @@ app.get("/",(req,res)=>{
     res.send("visited " + req.session.count + " times")
 })
 app.use("/users",usersRouter);
-app.use("/todos",todosRouter);
+
+
+app.use("/todos",authGuard,todosRouter);
 
 
 app.use((req,res)=>{

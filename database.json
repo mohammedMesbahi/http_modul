@@ -85,5 +85,14 @@
             "id": 16
         }
     ],
-    "users": []
+    "users": [
+        {
+            "login": "mehdi",
+            "pwd": "$2b$10$twQPrlnc6E9Olthvz6pea.fcdGfwqCEqeZR2qClvz9mBHBUNeLpLm"
+        },
+        {
+            "login": "ali",
+            "pwd": "$2b$10$ZDkHzzRk55SA7FbagzI3auogMpT9xerHREL04EEBgNigqMd7S.pJC"
+        }
+    ]
 }
