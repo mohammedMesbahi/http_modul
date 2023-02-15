@@ -2,9 +2,18 @@ const express = require("express")
 const usersRouter =require("./routes/users.js")
 const todosRouter =require("./routes/todos.js")
 const session = require("express-session")
+const mongoose = require("mongoose")
+const dotenv= require("dotenv")
+dotenv.config(); // require("dotenv").config()
+
+
+mongoose.set('strictQuery', false);
+mongoose.connect(process.env.CONNECTION)
+.then(()=>console.log("connected with success to mongodb"))
+.catch(err=>console.log(err))
 
 const app = express()
-const port = 3000
+const port = process.env.PORT || 3000
 let authGuard=(req,res,next)=>{
     if(req.session.isConnected)
        return next();
