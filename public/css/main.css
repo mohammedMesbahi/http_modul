@@ -1,0 +1,17 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+footer{
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    font-size: 2em;
+    text-align: center;
+    color: white;
+    background-color: rgb(74, 74, 226);
+}
+
+.hidden{
+    display: none;
+}

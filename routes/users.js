@@ -29,11 +29,11 @@ router.post("/register",async (req,res)=>{
 router.post("/login",async (req,res)=>{
     const {login,pwd}= req.body
     if(!login || !pwd)
-        return res.status(400).send("login and pwd are required")
+        return res.status(400).send({message:"login and pwd are required"})
     
         let user =await  User.findOne({login:login})
     if(!user)
-        return res.status(404).send("not found")
+        return res.status(404).send({message:"not found"})
     if(await bcrypt.compare(pwd,user.pwd))
         {
             req.session.isConnected=true;
@@ -41,7 +41,21 @@ router.post("/login",async (req,res)=>{
 
             return res.json({message:"success"})
         }
-    res.status(400).send("invalid credentiels")  
+    res.status(400).send({message:"invalid credentiels"})  
     
+})
+
+router.get("/logout",(req,res)=>{
+    req.session.destroy();
+    res.send();
+})
+router.get("/isConnected",async (req,res)=>{
+    if(!req.session.isConnected)
+        res.json({isConnected:false})
+    else
+        {
+          let user =   await User.findById(req.session.userId)
+          res.json({isConnected:true,name:user.login})
+        }
 })
 module.exports=router

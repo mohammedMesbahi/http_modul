@@ -8,8 +8,52 @@
     <script type="module" src="js/router.js">
 
     </script>
+    <script type="module" src="js/main.js">
+
+    </script>
+    <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-    
+    <section id="authApp" class="hidden">
+        <header>
+            <h1>GL2023</h1>
+            <nav>
+                <ul>
+                    <li><a href="#login">login</a></li>
+                    <li><a href="#register">register</a></li>
+                </ul>
+            </nav>
+        </header>
+        <div>
+            <article id="loginComponent" class="hidden">
+                <h2>Login</h2>
+                <form id="loginForm" action="">
+                    <input required name="login" type="email"  placeholder="email">
+                    <input required name="pwd" type="password" placeholder="password">
+                    <button type="submit">login</button>
+                </form>
+            </article>
+            <article id="registerComponent" class="hidden">
+                <h2>Register</h2>
+               <form id="registerForm">
+                    <input  name="login" placeholder="email">
+                    <input  name="pwd2" type="password" placeholder="password">
+                    <input  name="pwd2" type="password" placeholder="repeat password">
+                    <div>
+                        <button type="reset">reset</button>
+                        <button type="submit">register</button>
+                    </div>
+               </form>
+            </article>
+        </div>
+    </section>
+    <section id="todoApp" class="hidden">
+        todo app
+    </section>
+    <footer>
+        <p>
+            GL 2023
+        </p>
+    </footer>
 </body>
 </html>
