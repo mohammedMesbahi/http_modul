@@ -6,10 +6,12 @@ const mongoose = require("mongoose")
 const dotenv= require("dotenv")
 dotenv.config(); // require("dotenv").config()
 
-
 mongoose.set('strictQuery', false);
+mongoose.connect()
 mongoose.connect(process.env.CONNECTION)
-.then(()=>console.log("connected with success to mongodb"))
+.then(()=>{console.log("connected with success to mongodb")
+
+})
 .catch(err=>console.log(err))
 
 const app = express()
@@ -27,6 +29,9 @@ app.use(session({
     httpOnly: true
   }
 }))
+app.get("/index.html",(req,res)=>{
+
+})
 
 app.use(express.json()) // global
 app.use((req,res,next)=>{
