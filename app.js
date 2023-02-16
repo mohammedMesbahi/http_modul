@@ -7,7 +7,6 @@ const dotenv= require("dotenv")
 dotenv.config(); // require("dotenv").config()
 
 mongoose.set('strictQuery', false);
-mongoose.connect()
 mongoose.connect(process.env.CONNECTION)
 .then(()=>{console.log("connected with success to mongodb")
 
@@ -15,6 +14,9 @@ mongoose.connect(process.env.CONNECTION)
 .catch(err=>console.log(err))
 
 const app = express()
+
+app.use(express.static("./public"))
+
 const port = process.env.PORT || 3000
 let authGuard=(req,res,next)=>{
     if(req.session.isConnected)
