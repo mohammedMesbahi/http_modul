@@ -1,5 +1,6 @@
-import { urlApi, authApp, todoApp, registerComponent, loginComponent } from "./config.js";
+import { urlApi, authApp, todoApp, registerComponent, loginComponent, loginTitle } from "./config.js";
 let isConnected;
+
 export let checkAuth = async ()=>{
     let data= await (await fetch(urlApi+"users/isConnected")).json()
     isConnected=data.isConnected
@@ -7,11 +8,14 @@ export let checkAuth = async ()=>{
     {
         todoApp.classList.remove("hidden")
         authApp.classList.add("hidden")
+        loginTitle.innerText=data.name;
     }
     else{
         authApp.classList.remove("hidden")
         todoApp.classList.add("hidden")
+        loginTitle.innerText="";
     }
+    
 }
 checkAuth();
 

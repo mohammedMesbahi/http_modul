@@ -1,4 +1,4 @@
-import { loginForm, registerForm, urlApi } from "./config.js";
+import { loginForm, loginTitle, logoutBtn, registerForm, urlApi } from "./config.js";
 import { checkAuth } from "./router.js";
 import { formToJson } from "./utils.js";
 
@@ -14,7 +14,8 @@ loginForm.addEventListener('submit',async (event)=>{
     })
     if(response.ok)
         {
-           return checkAuth(); 
+            
+            return checkAuth();
         }
     let res=  await response.json()
     alert(res.message)
@@ -60,4 +61,10 @@ registerForm.addEventListener('submit',async (event)=>{
         console.log(e)
         alert("error")
     }
+})
+
+logoutBtn.addEventListener('click',async ()=>{
+    await fetch("users/logout")
+    window.location.hash=""
+    checkAuth()
 })
