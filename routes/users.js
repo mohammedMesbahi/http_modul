@@ -8,10 +8,10 @@ const router = express.Router();
 router.post("/register",async (req,res)=>{
     const {login,pwd}= req.body
     if(!login || !pwd)
-        return res.status(400).send("login and pwd are required")
+        return res.status(400).send({message:"login and pwd are required"})
     let user = await User.findOne({login:login})
     if(user)
-        return res.status(400).send("login already exists")
+        return res.status(400).send({message:"login already exists"})
     
     let hashPwd= await bcrypt.hash(pwd,10);
     
