@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <script src="/javascripts/main.js" defer></script>
+  <title>Dashboard</title>
+</head>
+
+<body>
+  <div class="mainSection">
+    <div class="createTask">
+      <form action="users/createTask" method="post">
+        <div class="card">
+          <% include ./partials/messages %> 
+            <h2><svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-coffee" href="#icon-coffee" />
+              </svg>Add a Task</h2>
+            <label class="input">
+              <input class="input__field" type="text" placeholder=" " name="task" required/>
+              <span class="input__label"> type here</span>
+            </label>
+            <div class="button-group">
+              <button type="submit" id="btnAdd">Add</button>
+              <button type="reset">Reset</button>
+            </div>
+            <button type="button" id="btnlogout">Logout</button>
+        </div>
+      </form>
+    </div>
+    <div class="allTasks">
+      <main>
+        <ol class="gradient-list">
+          <% if(locals.allTasks){ %>
+            <% locals.allTasks.forEach((task) => { %>
+              <li id=<%= task.id %> ><%= task.content %>
+                <button class="btndelete">delete</button>
+              </li>
+            <% }); %> <% } %>
+        </ol>
+      </main>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+    integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+    integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

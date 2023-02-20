@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,6 +14,7 @@
     </script>
     <link rel="stylesheet" href="css/main.css">
 </head>
+
 <body>
     <section id="authApp" class="hidden">
         <header>
@@ -25,31 +27,53 @@
             </nav>
         </header>
         <div>
-            <article id="loginComponent" class="hidden">
+            <article id="loginComponent" class="hidden" >
                 <h2>Login</h2>
                 <form id="loginForm" action="">
-                    <input required name="login" type="email"  placeholder="email">
-                    <input required name="pwd" type="password" placeholder="password">
+                    <input required name="login" type="email" placeholder="email" value="user1@gamil.com" class="curve">
+                    <input required name="pwd" type="password" placeholder="password" value="user1">
                     <button type="submit">login</button>
                 </form>
             </article>
             <article id="registerComponent" class="hidden">
                 <h2>Register</h2>
-               <form id="registerForm" action="">
-                    <input  required name="login" placeholder="email">
-                    <input  required name="pwd1" type="password" placeholder="password">
-                    <input  required name="pwd2" type="password" placeholder="repeat password">
+                <form id="registerForm" action="">
+                    <input required name="login" placeholder="email">
+                    <input required name="pwd1" type="password" placeholder="password">
+                    <input required name="pwd2" type="password" placeholder="repeat password">
                     <div>
                         <button type="reset">reset</button>
                         <button type="submit">register</button>
                     </div>
-               </form>
+                </form>
             </article>
         </div>
     </section>
     <section id="todoApp" class="hidden">
-       <h2 id="loginTitle"></h2>
-       <button id="logoutBtn">logout</button>
+        <header>
+            <div>
+                <span><em>welcome</em></span>
+                <span id="loginTitle"></span>
+            </div>
+            <button id="logoutBtn">logout</button>
+        </header>
+        <div class="form-todos">
+            <div class="form">
+                <form action="">
+                    <input type="text" placeholder="Title" id="title">
+                    <div class="completed">
+                        <label>complated</label>
+                        <select name="complated" id="complated">
+                            <option value="true">true</option>
+                            <option value="false">false</option>
+                        </select>
+                    </div>
+                    <button id="btnSubmitTodo" type="submit">add</button>
+                </form>
+            </div>
+            <div class="todos">
+            </div>
+        </div>
     </section>
     <footer>
         <p>
@@ -57,4 +81,5 @@
         </p>
     </footer>
 </body>
+
 </html>

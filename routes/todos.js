@@ -3,6 +3,7 @@ const User = require("../ models/users");
 
 
 const router= express.Router();
+// returns all todos of a user
 router.get("/",async (req,res)=>{
 
     let user = await User.findById(req.session.userId) 
@@ -10,7 +11,7 @@ router.get("/",async (req,res)=>{
     let todos = user.todos.filter((element,index)=>index<limit)
     res.json(todos)
 })
-
+// a spesific todo 
 router.get("/:id",async (req,res)=>{
     let id = req.params.id
   
@@ -22,21 +23,22 @@ router.get("/:id",async (req,res)=>{
     else
         res.status(404).json({message:"todo with id = " + id + " not found"})
 })
-
+// create a todo
 router.post("/",async (req,res)=>{
     let {title, completed }=req.body
     //verification
+    console.log(req.body)
     if(!title || completed==undefined)
         return res.status(400).json({message:"userId, title and completed are required"})
     let data = {title,completed}
     let user = await User.findById(req.session.userId) 
     user.todos.push(data)
-    user.save().then(()=>res.json(user))
+    user.save().then(()=>res.json(data))
     .catch(err=>{
         res.status(500).json({message:"please try again later"})
         })
     })
-
+// delete a todo
 router.delete("/:id",async (req,res)=>{
     let id = req.params.id
     let user = await User.findById(req.session.userId) 
@@ -54,7 +56,7 @@ router.delete("/:id",async (req,res)=>{
         })
       
 })
-
+// modefie a todo
 router.put("/:id",async(req,res)=>{
     let id=req.params.id
     let {title, completed } = req.body
